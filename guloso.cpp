@@ -16,6 +16,7 @@ void zerar2(int matriz[5][8],int coluna){
     matriz[i][coluna] = 0;
 }
 void ex01adj(int adj[5][5]){
+  int total = 0;
   int caminho[5] = {1,0,0,0,0};
   int linha = 0;
   int menor = 0;
@@ -32,6 +33,7 @@ void ex01adj(int adj[5][5]){
 
       }
     }
+    total += menor;
     atual = linha ;
     zerar(adj,atual);
     linha = posicao;
@@ -41,12 +43,14 @@ void ex01adj(int adj[5][5]){
   for(int j = 0; j < 5; j++){
     cout << "Caminho : " << caminho[j] << endl;
   }
+  cout << "Total : " << total << endl;
   cout << "Pressione Enter " << endl;
   getchar();
   getchar();
   system("clear");
 }
 void ex01inc(int matriz[5][8]){
+  int total = 0;
   int caminho[5] = {1,0,0,0,0};
   int menor;
   int posicao;
@@ -60,6 +64,7 @@ void ex01inc(int matriz[5][8]){
         posicao = i;
       }
     }
+    total += menor;
     for(int j = 0; j < 5; j++){
       if(matriz[j][posicao] != 0 && j != linha){
         linha = j;
@@ -73,18 +78,19 @@ void ex01inc(int matriz[5][8]){
   for(int i = 0; i < 5; i++){
     cout << "Caminho "<< caminho[i] << endl;
   }
+  cout << "Total : " << total << endl;
   cout << "Pressione Enter " << endl;
   getchar();
   getchar();
   system("clear");
 }
 void ex02adj(int adj[7][7]){
+  int total = 0;
   int caminho[4] = {1,0,0,0};
   int linha = 0;
   int menor = 0;
   int posicao = 0;
   int contador = 1;
-  // int atual = 1;
   while(linha != 6){
     menor = 999999;
     posicao = 0;
@@ -94,8 +100,7 @@ void ex02adj(int adj[7][7]){
         posicao = j;
       }
     }
-    // atual = linha ;
-    // zerar(adj,atual);
+    total += menor;
     linha = posicao;
     caminho[contador] = posicao + 1;
     contador++;
@@ -103,6 +108,41 @@ void ex02adj(int adj[7][7]){
   for(int j = 0; caminho[j] != 0; j++){
     cout << "Caminho : " << caminho[j] << endl;
   }
+  cout << "Total : " << total << endl;
+  cout << "Pressione Enter " << endl;
+  getchar();
+  getchar();
+  system("clear");
+}
+void ex02inc(int matriz[9][7]){
+  int total = 0;
+  int caminho[4] = {1,0,0,0};
+  int menor;
+  int linha;
+  int coluna = 0;
+  int contador = 1;
+  while(coluna != 6){
+    menor = 99999;
+    for(int i = 0; i < 9; i++){
+      if(matriz[i][coluna] < menor && matriz[i][coluna] > 0){
+        menor = matriz[i][coluna];
+        linha = i;
+      }
+    }
+    total += menor;
+    for(int j = 0; j < 7; j++){
+      if(matriz[linha][j] == menor * -1 ){
+        coluna = j;
+        break;
+      }
+    }
+    caminho[contador] = coluna + 1;
+    contador ++;
+  }
+  for(int i = 0;caminho[i] != 0; i++){
+    cout << "Caminho "<< caminho[i] << endl;
+  }
+  cout << "Total : " << total << endl;
   cout << "Pressione Enter " << endl;
   getchar();
   getchar();
@@ -131,6 +171,17 @@ int adj2[7][7] =/*1*/{{+00,+02,+00,+06,+12,+00,+00},
                 /*5*/ {-12,+00,+00,+00,+00,+00,+30},
                 /*6*/ {+00,-05,+00,-04,+00,+00, +8},
                 /*7*/ {+00,+00,-40,+00,-30, -8,-00}};
+
+                      /*1    2   3   4   5   6   7 */
+int inc2[9][7] =/*a*/{{+02,-02,+00,+00,+00,+00,+00},
+                /*b*/ {+06,+00,+00,-06,+00,+00,+00},
+                /*c*/ {+12,+00,+00,+00,-12,+00,+00},
+                /*d*/ {+00,+01,-01,+00,+00,+00,+00},
+                /*e*/ {+00,+05,+00,+00,+00,-05,+00},
+                /*f*/ {+00,+00,+00,+04,+00,-04,+00},
+                /*g*/ {+00,+00,+00,+00,+30,+00,-30},
+                /*h*/ {+00,+00,+40,+00,+00,+00,-40},
+                /*i*/ {+00,+00,+00,+00,+00, +8, -8}};
   int x;
   do{
     cout << "1 : Exercício 01 c/ matriz de adjacência" << endl;
@@ -148,6 +199,9 @@ int adj2[7][7] =/*1*/{{+00,+02,+00,+06,+12,+00,+00},
         break;
       case 3:
         ex02adj(adj2);
+        break;
+      case 4 :
+        ex02inc(inc2);
         break;
       case 0 :
         break;
